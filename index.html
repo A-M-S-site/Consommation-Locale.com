@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>SenCons_Loc - Produits Locaux Sénégalais</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #E67E22;
+            --primary-dark: #D35400;
+            --primary-light: #F39C12;
+            --secondary: #2ECC71;
+            --secondary-dark: #27AE60;
+            --tertiary: #3498DB;
+            --accent: #9B59B6;
+            --danger: #E74C3C;
+            --danger-dark: #C0392B;
+            --warning: #F1C40F;
+            --success: #2ECC71;
+            --info: #1ABC9C;
+            --bg-primary: #FFF8F0;
+            --bg-secondary: #FFFFFF;
+            --bg-dark: #2C3E50;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --facebook: #3B5998;
+            --whatsapp: #25D366;
+            --instagram: #E4405F;
+            --shadow-sm: 0 2px 5px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 30px;
+            --radius-full: 50%;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #FFF8F0, #FFEAA7);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 12px 50px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .top-bar a { color: white; transition: all 0.3s ease; margin-left: 15px; text-decoration: none; }
+        .top-bar a:hover { transform: translateY(-2px); color: var(--warning); }
+
+        .main-header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-icon {
+            width: 55px; height: 55px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-full);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; color: white;
+            box-shadow: var(--shadow-md);
+            animation: pulse 2s infinite;
+        }
+        .logo { font-size: 28px; font-weight: 800; }
+        .logo .sen { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo .artisan { background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+        .search-box { flex: 1; max-width: 450px; position: relative; }
+        .search-box input {
+            width: 100%; padding: 12px 20px;
+            border: 2px solid transparent; border-radius: var(--radius-xl);
+            font-size: 14px; transition: all 0.3s ease;
+            background: white; box-shadow: var(--shadow-sm);
+        }
+        .search-box input:focus { outline: none; border-color: var(--primary); box-shadow: var(--shadow-md); }
+
+        .profile-area { display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.3s ease; }
+        .profile-area:hover { transform: translateY(-2px); }
+        .profile-avatar {
+            width: 55px; height: 55px; border-radius: var(--radius-full);
+            overflow: hidden; background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease; box-shadow: var(--shadow-sm);
+        }
+        .profile-avatar:hover { transform: scale(1.05); box-shadow: var(--shadow-md); }
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-avatar i { font-size: 32px; color: white; }
+
+        .icons { display: flex; gap: 20px; font-size: 22px; }
+        .icons div { position: relative; cursor: pointer; transition: all 0.3s ease; }
+        .icons div:hover { transform: translateY(-3px); color: var(--primary); }
+        .badge {
+            position: absolute; top: -8px; right: -12px;
+            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+            color: white; font-size: 10px; padding: 2px 6px;
+            border-radius: var(--radius-full); min-width: 18px; text-align: center; font-weight: bold;
+        }
+
+        .nav-menu {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 0 50px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .nav-menu ul { display: flex; list-style: none; gap: 35px; padding: 15px 0; flex-wrap: wrap; }
+        .nav-menu ul li a {
+            text-decoration: none; color: var(--text-primary); font-weight: 600;
+            transition: all 0.3s ease; position: relative; cursor: pointer;
+        }
+        .nav-menu ul li a::after {
+            content: ''; position: absolute; bottom: -5px; left: 0;
+            width: 0; height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+        .nav-menu ul li a:hover::after { width: 100%; }
+        .nav-menu ul li a:hover { color: var(--primary); }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(71, 232, 238, 0.85), rgba(235, 116, 19, 0.85)), url('https://st2.depositphotos.com/1763191/44119/v/450/depositphotos_441197524-stock-illustration-fashion-clothes-store-background-illustration.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            padding: 100px 50px; text-align: center; color: white;
+        }
+        .hero h1 { font-size: 52px; font-weight: 800; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); animation: fadeInUp 0.8s ease; }
+        .hero p { font-size: 20px; margin-top: 15px; animation: fadeInUp 0.8s ease 0.2s both; }
+        .hero-badges { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.4s both; }
+        .hero-badge {
+            background: rgba(255,255,255,0.95); color: var(--primary); padding: 12px 25px;
+            border-radius: var(--radius-xl); font-weight: 600; transition: all 0.3s ease;
+        }
+        .hero-badge:hover { transform: translateY(-3px); background: white; box-shadow: var(--shadow-lg); }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 30px; }
+        .shop-layout { display: grid; grid-template-columns: 280px 1fr; gap: 30px; }
+
+        .filters-sidebar {
+            background: var(--bg-secondary); border-radius: var(--radius-lg);
+            padding: 25px; height: fit-content; position: sticky; top: 90px;
+            box-shadow: var(--shadow-md); transition: all 0.3s ease;
+        }
+        .filters-sidebar:hover { box-shadow: var(--shadow-lg); }
+        .filter-group { margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 15px; }
+        .filter-group h4 { margin-bottom: 12px; color: var(--primary); font-weight: 600; }
+        .price-inputs { display: flex; gap: 10px; }
+        .price-inputs input { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: var(--radius-sm); }
+
+        .products-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+
+        .product-card {
+            background: var(--bg-secondary); border-radius: var(--radius-lg);
+            overflow: hidden; transition: all 0.3s ease; cursor: pointer;
+            box-shadow: var(--shadow-sm); animation: fadeInUp 0.6s ease;
+        }
+        .product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); }
+        .product-media { position: relative; height: 280px; overflow: hidden; background: linear-gradient(135deg, #f5f5f5, #e0e0e0); }
+        .product-media img, .product-media video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .product-card:hover .product-media img { transform: scale(1.1); }
+        .product-badge {
+            position: absolute; top: 12px; left: 12px;
+            background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+            color: white; padding: 5px 12px; border-radius: var(--radius-xl);
+            font-size: 11px; font-weight: bold; z-index: 2;
+        }
+        .product-wishlist-btn {
+            position: absolute; top: 12px; right: 12px;
+            background: white; width: 35px; height: 35px; border-radius: var(--radius-full);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.3s ease; z-index: 2; box-shadow: var(--shadow-sm);
+        }
+        .product-wishlist-btn:hover { background: linear-gradient(135deg, var(--danger), var(--danger-dark)); color: white; transform: scale(1.1); }
+        .product-info { padding: 18px; }
+        .product-title { font-weight: 700; font-size: 17px; margin-bottom: 8px; }
+        .product-price { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 22px; font-weight: bold; margin: 8px 0; }
+        .product-rating { color: var(--warning); margin-bottom: 10px; font-size: 14px; }
+
+        .btn {
+            padding: 12px 24px; border: none; border-radius: var(--radius-xl);
+            cursor: pointer; font-weight: 600; transition: all 0.3s ease; font-size: 14px;
+            position: relative; overflow: hidden;
+        }
+        .btn::before {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 0; height: 0; border-radius: 50%;
+            background: rgba(255,255,255,0.3); transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn:hover::before { width: 300px; height: 300px; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        .btn-outline:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        .btn-success { background: linear-gradient(135deg, var(--success), var(--secondary-dark)); color: white; }
+        .btn-danger { background: linear-gradient(135deg, var(--danger), var(--danger-dark)); color: white; }
+        .btn-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); color: white; }
+
+        .payment-methods { display: flex; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+        .payment-method {
+            display: flex; align-items: center; gap: 10px; padding: 12px 20px;
+            border: 2px solid #ddd; border-radius: var(--radius-md); cursor: pointer; transition: all 0.3s ease;
+        }
+        .payment-method:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .payment-method.selected { border-color: var(--primary); background: linear-gradient(135deg, rgba(230,126,34,0.1), rgba(46,204,113,0.1)); }
+
+        .modal {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px); z-index: 2000;
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background: var(--bg-secondary); width: 90%; max-width: 900px;
+            max-height: 85vh; overflow-y: auto; border-radius: var(--radius-lg);
+            padding: 30px; animation: fadeInUp 0.3s ease;
+        }
+
+        .whatsapp-chat {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        .whatsapp-chat-btn {
+            background: #25D366;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .whatsapp-chat-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+        .whatsapp-chat-btn i {
+            font-size: 40px;
+            color: white;
+        }
+        .chat-preview {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 320px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: none;
+            overflow: hidden;
+            animation: fadeInUp 0.3s ease;
+        }
+        .chat-preview.active {
+            display: block;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #E5DDD5;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+            display: flex;
+        }
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+        .chat-message.user .message-bubble {
+            background: #DCf8C5;
+            color: #075E54;
+        }
+        .chat-message.bot .message-bubble {
+            background: white;
+            color: #333;
+        }
+        .message-bubble {
+            max-width: 80%;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+        .chat-input-area {
+            padding: 10px;
+            background: white;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        .chat-input-area button {
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
+
+        .sync-status {
+            background: linear-gradient(135deg, var(--info), var(--tertiary));
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin: 10px 0;
+            display: none;
+        }
+        .sync-status.active {
+            display: block;
+            animation: blink 1s infinite;
+        }
+
+        .social-links { display: flex; gap: 20px; margin-top: 15px; }
+        .social-links a { font-size: 28px; transition: all 0.3s ease; }
+        .social-links a:hover { transform: translateY(-5px) scale(1.1); }
+        .social-icon.facebook { color: var(--facebook); }
+        .social-icon.whatsapp { color: var(--whatsapp); }
+        .social-icon.instagram { color: var(--instagram); }
+
+        footer {
+            background: linear-gradient(135deg, var(--bg-dark), #1A252F);
+            color: white; padding: 50px 50px 20px; margin-top: 60px;
+            position: relative;
+        }
+        footer::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--tertiary), var(--accent));
+        }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .footer-bottom { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        .pagination { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .pagination button { padding: 8px 15px; border: none; border-radius: var(--radius-sm); cursor: pointer; transition: all 0.3s ease; }
+        .pagination button.active { background: var(--primary); color: white; }
+
+        .toast {
+            position: fixed; bottom: 20px; right: 20px;
+            padding: 15px 25px; border-radius: var(--radius-md);
+            z-index: 3000; animation: slideInLeft 0.3s ease;
+            color: white; font-weight: 500; box-shadow: var(--shadow-lg);
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px; }
+
+        @media (max-width: 768px) {
+            .shop-layout { grid-template-columns: 1fr; }
+            .main-header { flex-direction: column; }
+            .hero h1 { font-size: 32px; }
+            .top-bar { flex-direction: column; text-align: center; gap: 10px; }
+            .whatsapp-chat { bottom: 20px; right: 20px; }
+            .chat-preview { width: 280px; right: 0; bottom: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div><i class="fas fa-map-marker-alt"></i> Dakar, Tamba Sénégal | Livraison gratuite dès 50 000 CFA</div>
+    <div>
+        <i class="fas fa-phone"></i> +221 77 232 53 18
+        <i class="fas fa-envelope" style="margin-left:15px;"></i> sencons_loc@gmail.com
+        <a href="https://www.facebook.com/profile.php?id=61570873790282" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://wa.me/221772325318" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+</div>
+
+<div class="main-header">
+    <div class="logo-area">
+        <div class="logo-icon"><i class="fas fa-hands-helping"></i></div>
+        <div class="logo"><span class="sen">Sen</span><span class="artisan">Cons_Loc</span> 🇸🇳</div>
+    </div>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Rechercher un produit artisanal...">
+        <div id="autocompleteList" style="position: absolute; background: white; width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 1000; display: none;"></div>
+    </div>
+    <div class="profile-area" onclick="openProfileModal()">
+        <div class="profile-avatar" id="profileAvatar"><i class="fas fa-user-circle"></i></div>
+        <span class="profile-name" id="profileName">Mon compte</span>
+    </div>
+    <div class="icons">
+        <div onclick="openWishlist()"><i class="far fa-heart"></i><span class="badge" id="wishlistCount">0</span></div>
+        <div onclick="openCart()"><i class="fas fa-shopping-cart"></i><span class="badge" id="cartCount">0</span></div>
+    </div>
+</div>
+
+<div class="nav-menu">
+    <ul>
+        <li><a onclick="filterByCategory('all')">🏠 Accueil</a></li>
+        <li><a onclick="filterByCategory('chaussures')">👞 Chaussures</a></li>
+        <li><a onclick="filterByCategory('vêtements')">👗 Vêtements</a></li>
+        <li><a onclick="filterByCategory('cosmétiques')">💄 Cosmétiques</a></li>
+        <li><a onclick="filterByCategory('accessoires')">💍 Accessoires</a></li>
+        <li><a onclick="filterByCategory('décoration')">🏺 Décoration</a></li>
+        <li><a onclick="openLoyalty()">⭐ Fidélité</a></li>
+        <li><a onclick="openAdmin()">🔧 Admin</a></li>
+    </ul>
+</div>
+
+<div class="hero">
+    <h1>Bienvenue chez SenCons_Loc, l'artisanat est à votre portée!</h1>
+    <p>Promouvoir la consommation locale, notre priorité.</p>
+    <div class="hero-badges">
+        <div class="hero-badge">🇸🇳 100% Artisanal</div>
+        <div class="hero-badge">🚚 Livraison gratuite</div>
+        <div class="hero-badge">💳 Wave & Orange Money</div>
+        <div class="hero-badge">⭐ Programme Fidélité</div>
+        <div class="hero-badge">🔄 Synchro automatique</div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="shop-layout">
+        <div class="filters-sidebar">
+            <h3><i class="fas fa-filter"></i> Filtres</h3>
+            <div class="filter-group">
+                <h4>💰 Prix (CFA)</h4>
+                <div class="price-inputs">
+                    <input type="number" id="minPrice" placeholder="Min" value="0">
+                    <input type="number" id="maxPrice" placeholder="Max" value="500000">
+                </div>
+            </div>
+            <div class="filter-group">
+                <h4>🏷️ Marques</h4>
+                <div id="brandFilters">
+                    <label><input type="checkbox" value="SénéChic"> SénéMode</label><br>
+                    <label><input type="checkbox" value="AfriKrea"> AfriCréation</label><br>
+                    <label><input type="checkbox" value="NaturSéné"> Monde</label><br>
+                    <label><input type="checkbox" value="ArtisanDakar"> ArtisanSénégal</label>
+                </div>
+            </div>
+            <div class="filter-group">
+                <h4>⭐ Note minimale</h4>
+                <select id="ratingFilter">
+                    <option value="0">Toutes</option>
+                    <option value="4">4 étoiles +</option>
+                    <option value="3">3 étoiles +</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <h4>📦 Disponibilité</h4>
+                <label><input type="checkbox" id="inStockOnly"> En stock uniquement</label>
+            </div>
+            <div class="filter-group">
+                <h4>📊 Trier par</h4>
+                <select id="sortBy">
+                    <option value="pertinence">Pertinence</option>
+                    <option value="price_asc">Prix croissant</option>
+                    <option value="price_desc">Prix décroissant</option>
+                    <option value="rating">Meilleures notes</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="applyFilters()" style="width:100%">Appliquer</button>
+        </div>
+
+        <div>
+            <div id="syncStatus" class="sync-status">
+                <i class="fas fa-sync-alt fa-spin"></i> Synchronisation en cours...
+            </div>
+            <div class="products-header">
+                <h2 id="categoryTitle">✨ Nos Produits Locaux</h2>
+                <div>🛍️ <span id="productCount">0</span> produits</div>
+            </div>
+            <div id="productsContainer" class="products-grid"></div>
+            <div id="pagination" class="pagination"></div>
+        </div>
+    </div>
+</div>
+
+<!-- WhatsApp Chat -->
+<div class="whatsapp-chat">
+    <div class="whatsapp-chat-btn" onclick="toggleChat()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+    <div class="chat-preview" id="chatPreview">
+        <div class="chat-header">
+            <i class="fab fa-whatsapp fa-2x"></i>
+            <strong>Support SenCons_Loc</strong>
+            <i class="fas fa-times" style="cursor: pointer; margin-left: auto;" onclick="toggleChat()"></i>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message bot">
+                <div class="message-bubble">👋 Bonjour ! Bienvenue chez SenCons_Loc. Comment pouvons-nous vous aider ?</div>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Votre message..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+            <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Modal -->
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <h2><i class="fas fa-shopping-cart"></i> Mon Panier</h2>
+        <div id="cartItems"></div>
+        <div id="cartSummary"></div>
+        <div class="payment-methods">
+            <div class="payment-method" data-method="card" onclick="selectPaymentMethod('card')"><i class="fas fa-credit-card"></i><span>Carte bancaire</span></div>
+            <div class="payment-method" data-method="wave" onclick="selectPaymentMethod('wave')"><i class="fas fa-waveform"></i><span>Wave</span></div>
+            <div class="payment-method" data-method="orange" onclick="selectPaymentMethod('orange')"><i class="fas fa-mobile-alt"></i><span>Orange Money</span></div>
+        </div>
+        <div id="waveForm" style="display:none"><input type="tel" id="waveNumber" placeholder="Numéro Wave" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ddd;"></div>
+        <div id="orangeForm" style="display:none"><input type="tel" id="orangeNumber" placeholder="Numéro Orange Money" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ddd;"></div>
+        <input type="text" id="promoCode" placeholder="Code promo (SEN10)" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ddd;">
+        <button class="btn btn-outline" onclick="applyPromo()">Appliquer</button>
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <button class="btn btn-primary" onclick="checkout()">✅ Valider la commande</button>
+            <button class="btn btn-outline" onclick="closeModal('cartModal')">Fermer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Product Modal -->
+<div id="productModal" class="modal"><div class="modal-content" id="productModalContent"></div></div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <h2><i class="fas fa-user-circle"></i> Mon Profil</h2>
+        <div class="profile-preview" style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+            <img id="profilePreviewImg" class="profile-preview-img" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); margin-bottom: 15px;">
+            <input type="file" id="profilePhotoUpload" accept="image/*" style="display:none">
+            <button class="upload-btn" style="background: var(--primary); color: white; padding: 8px 20px; border-radius: 25px; cursor: pointer; border: none;" onclick="document.getElementById('profilePhotoUpload').click()">📸 Changer photo</button>
+        </div>
+        <input type="text" id="authName" placeholder="Nom complet" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ddd;">
+        <input type="email" id="authEmail" placeholder="Email" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ddd;">
+        <input type="password" id="authPassword" placeholder="Mot de passe" style="width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ddd;">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="registerUser()">S'inscrire</button>
+            <button class="btn btn-outline" onclick="loginUser()">Se connecter</button>
+            <button class="btn btn-danger" onclick="logoutUser()" id="logoutBtn" style="display:none;">Déconnexion</button>
+            <button class="btn btn-outline" onclick="closeModal('profileModal')">Fermer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="modal">
+    <div class="modal-content" style="max-width: 1000px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2><i class="fas fa-shield-alt"></i> Administration</h2>
+            <button class="btn btn-danger" onclick="closeModal('adminModal')">Fermer</button>
+        </div>
+        <div id="adminLoginDiv">
+            <input type="password" id="adminPassword" placeholder="Mot de passe admin" style="width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd;">
+            <button class="btn btn-primary" onclick="loginAdmin()">Connexion</button>
+        </div>
+        <div id="adminContentDiv" style="display:none;">
+            <!-- Statistiques -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px;">
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color:white; padding:15px; border-radius:12px; text-align:center;">
+                    <h3>Produits</h3>
+                    <p style="font-size:28px; font-weight:bold;" id="adminTotalProducts">0</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--secondary), var(--secondary-dark)); color:white; padding:15px; border-radius:12px; text-align:center;">
+                    <h3>Commandes</h3>
+                    <p style="font-size:28px; font-weight:bold;" id="adminTotalOrders">0</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--info), var(--tertiary)); color:white; padding:15px; border-radius:12px; text-align:center;">
+                    <h3>Utilisateurs</h3>
+                    <p style="font-size:28px; font-weight:bold;" id="adminTotalUsers">0</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, var(--warning), #F39C12); color:white; padding:15px; border-radius:12px; text-align:center;">
+                    <h3>CA Total</h3>
+                    <p style="font-size:28px; font-weight:bold;" id="adminTotalRevenue">0 CFA</p>
+                </div>
+            </div>
+
+            <!-- Onglets -->
+            <div class="tabs" style="display: flex; gap: 10px; border-bottom: 2px solid #eee; margin-bottom: 20px;">
+                <button class="tab active" onclick="showAdminTab('products')">📦 Produits</button>
+                <button class="tab" onclick="showAdminTab('add')">➕ Ajouter</button>
+                <button class="tab" onclick="showAdminTab('orders')">📋 Commandes</button>
+                <button class="tab" onclick="showAdminTab('users')">👥 Utilisateurs</button>
+                <button class="tab" onclick="showAdminTab('media')">🖼️ Médias</button>
+                <button class="tab" onclick="showAdminTab('sync')">🔄 Synchronisation</button>
+            </div>
+
+            <!-- Onglet Produits -->
+            <div id="adminProductsTab" class="admin-tab-content">
+                <div style="margin-bottom: 15px;">
+                    <input type="text" id="adminSearchProduct" placeholder="Rechercher un produit..." style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd;">
+                </div>
+                <div style="overflow-x: auto;">
+                    <table style="width:100%; border-collapse: collapse;">
+                        <thead style="background: #f5f5f5;">
+                            <tr><th>Image</th><th>Nom</th><th>Prix</th><th>Stock</th><th>Catégorie</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="adminProductsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Onglet Ajout -->
+            <div id="adminAddTab" class="admin-tab-content" style="display:none;">
+                <h3>➕ Ajouter un produit</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <input type="text" id="prodName" placeholder="Nom du produit" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    <input type="number" id="prodPrice" placeholder="Prix (CFA)" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    <select id="prodCategory" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                        <option value="vêtements">Vêtements</option>
+                        <option value="chaussures">Chaussures</option>
+                        <option value="cosmétiques">Cosmétiques</option>
+                        <option value="accessoires">Accessoires</option>
+                        <option value="décoration">Décoration</option>
+                    </select>
+                    <input type="text" id="prodBrand" placeholder="Marque" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    <input type="number" id="prodStock" placeholder="Stock" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    <input type="text" id="prodImage" placeholder="URL image" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    <input type="number" id="prodRating" step="0.1" placeholder="Note (0-5)" style="padding:10px; border-radius:8px; border:1px solid #ddd;">
+                    <textarea id="prodDescription" placeholder="Description" rows="3" style="padding:10px; border-radius:8px; border:1px solid #ddd;"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="adminAddProduct()" style="margin-top:15px;">➕ Ajouter</button>
+            </div>
+
+            <!-- Onglet Commandes -->
+            <div id="adminOrdersTab" class="admin-tab-content" style="display:none;">
+                <div style="overflow-x: auto;">
+                    <table style="width:100%; border-collapse: collapse;">
+                        <thead style="background: #f5f5f5;">
+                            <tr><th>ID</th><th>Client</th><th>Date</th><th>Total</th><th>Statut</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="adminOrdersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Onglet Utilisateurs -->
+            <div id="adminUsersTab" class="admin-tab-content" style="display:none;">
+                <div style="overflow-x: auto;">
+                    <table style="width:100%; border-collapse: collapse;">
+                        <thead style="background: #f5f5f5;">
+                            <tr><th>Nom</th><th>Email</th><th>Rôle</th><th>Points</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="adminUsersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Onglet Médias -->
+            <div id="adminMediaTab" class="admin-tab-content" style="display:none;">
+                <div style="margin-bottom: 15px;">
+                    <input type="file" id="adminMediaUpload" accept="image/*,video/*" multiple style="display:none">
+                    <button class="btn btn-primary" onclick="document.getElementById('adminMediaUpload').click()">📤 Upload média</button>
+                </div>
+                <div id="adminMediaGallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;"></div>
+            </div>
+
+            <!-- Onglet Synchronisation -->
+            <div id="adminSyncTab" class="admin-tab-content" style="display:none;">
+                <h3>🔄 Synchronisation avec le code source</h3>
+                <p>Cette fonction permet de synchroniser les produits avec les données par défaut du code source.</p>
+                <button class="btn btn-primary" onclick="syncWithSourceCode()" style="margin:15px 0;">🔄 Synchroniser maintenant</button>
+                <div id="syncResult" style="margin-top: 15px;"></div>
+                
+                <h3>💾 Sauvegarde et restauration</h3>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-success" onclick="exportAllData()">📥 Exporter les données</button>
+                    <button class="btn btn-warning" onclick="importDataFile()">📤 Importer des données</button>
+                    <button class="btn btn-danger" onclick="resetAllData()">⚠️ Réinitialiser</button>
+                </div>
+                <input type="file" id="importDataFile" accept=".json" style="display:none">
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div>
+            <h3><i class="fas fa-hands-helping"></i> SenCons_Loc</h3>
+            <p>Valorisation des produits locaux sénégalais</p>
+            <div class="social-links">
+                <a href="#" target="_blank" class="social-icon facebook"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="https://wa.me/221772325318" target="_blank" class="social-icon whatsapp"><i class="fab fa-whatsapp fa-2x"></i></a>
+                <a href="#" target="_blank" class="social-icon instagram"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+        </div>
+        <div>
+            <h3><i class="fas fa-map-marker-alt"></i> Contact</h3>
+            <p><i class="fas fa-phone"></i> +221 77 232 53 18</p>
+            <p><i class="fas fa-envelope"></i> sencons_loc@gmail.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Dakar, Tamba Sénégal</p>
+        </div>
+        <div>
+            <h3><i class="fas fa-clock"></i> Horaires</h3>
+            <p>Lundi - Vendredi: 8h - 20h</p>
+            <p>Samedi: 9h - 17h</p>
+            <p>Dimanche: Fermé</p>
+        </div>
+        <div>
+            <h3><i class="fas fa-credit-card"></i> Paiement</h3>
+            <p><i class="fas fa-credit-card"></i> Carte bancaire</p>
+            <p><i class="fab fa-whatsapp"></i> Wave</p>
+            <p><i class="fas fa-mobile-alt"></i> Orange Money</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 SenCons_Loc - Tous droits réservés | Créé avec <i class="fas fa-heart" style="color: #E74C3C;"></i> au Sénégal</p>
+    </div>
+</footer>
+
+<script>
+    // ========== DONNÉES PAR DÉFAUT (CODE SOURCE) ==========
+    const SOURCE_PRODUCTS = [
+        { id: 1, name: "Boubou Cérémonie", category: "vêtements", price: 35000, brand: "SénéChic", rating: 4.8, stock: 12, image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400", description: "Magnifique boubou traditionnel en tissu tissé main par des artisans locaux." },
+        { id: 2, name: "Sandales en cuir", category: "chaussures", price: 18500, brand: "AfriKrea", rating: 4.5, stock: 5, image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400", description: "Sandales artisanales en cuir de qualité supérieure." },
+        { id: 3, name: "Savon noir artisanal", category: "cosmétiques", price: 4500, brand: "NaturSéné", rating: 4.9, stock: 30, image: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400", description: "Savon noir 100% naturel à base de karité." },
+        { id: 4, name: "Baskets tressées", category: "chaussures", price: 42000, brand: "SénéChic", rating: 4.7, stock: 8, image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400", description: "Baskets uniques avec tressage traditionnel sénégalais." },
+        { id: 5, name: "Robe en pagne", category: "vêtements", price: 28500, brand: "AfriKrea", rating: 4.6, stock: 3, image: "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=400", description: "Robe élégante en pagne wax." },
+        { id: 6, name: "Baume karité", category: "cosmétiques", price: 8900, brand: "NaturSéné", rating: 4.4, stock: 22, image: "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400", description: "Baume nourrissant au karité bio." },
+        { id: 7, name: "Collier en perles", category: "accessoires", price: 12500, brand: "ArtisanDakar", rating: 4.7, stock: 15, image: "https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=400", description: "Collier artisanal en perles de verre recyclé." },
+        { id: 8, name: "Masque africain", category: "décoration", price: 55000, brand: "ArtisanDakar", rating: 4.9, stock: 4, image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=400", description: "Masque traditionnel décoratif." },
+        { id: 9, name: "Sac en tissu", category: "accessoires", price: 18500, brand: "SénéChic", rating: 4.6, stock: 10, image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400", description: "Sac à main en tissu tissé main." },
+        { id: 10, name: "Boucle d'oreilles", category: "accessoires", price: 7500, brand: "AfriKrea", rating: 4.8, stock: 20, image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400", description: "Boucles d'oreilles en perles et métal recyclé." }
+    ];
+
+    // Variables globales
+    let products = [];
+    let users = [{ id: 1, name: "Admin", email: "admin@senartisan.com", password: "SenCons@123", role: "admin", points: 0, createdAt: new Date().toISOString() }];
+    let cart = [];
+    let wishlist = [];
+    let orders = [];
+    let mediaLibrary = [];
+    let currentUser = null;
+    let loyaltyPoints = 0;
+    let currentCategory = "all";
+    let currentPage = 1;
+    let itemsPerPage = 6;
+    let selectedPaymentMethod = "card";
+    let syncInterval = null;
+
+    // ========== INITIALISATION ==========
+    function init() {
+        loadData();
+        updateDisplay();
+        renderProducts();
+        startAutoSync();
+    }
+
+    function loadData() {
+        const savedProducts = localStorage.getItem('sencons_products');
+        products = savedProducts ? JSON.parse(savedProducts) : JSON.parse(JSON.stringify(SOURCE_PRODUCTS));
+        
+        const savedUsers = localStorage.getItem('sencons_users');
+        if (savedUsers) users = JSON.parse(savedUsers);
+        
+        const savedCart = localStorage.getItem('sencons_cart');
+        if (savedCart) cart = JSON.parse(savedCart);
+        
+        const savedWishlist = localStorage.getItem('sencons_wishlist');
+        if (savedWishlist) wishlist = JSON.parse(savedWishlist);
+        
+        const savedOrders = localStorage.getItem('sencons_orders');
+        if (savedOrders) orders = JSON.parse(savedOrders);
+        
+        const savedMedia = localStorage.getItem('sencons_media');
+        if (savedMedia) mediaLibrary = JSON.parse(savedMedia);
+        
+        const savedLoyalty = localStorage.getItem('sencons_loyalty');
+        if (savedLoyalty) loyaltyPoints = parseInt(savedLoyalty);
+        
+        const savedUser = localStorage.getItem('sencons_current_user');
+        if (savedUser) currentUser = JSON.parse(savedUser);
+    }
+
+    function saveData() {
+        localStorage.setItem('sencons_products', JSON.stringify(products));
+        localStorage.setItem('sencons_users', JSON.stringify(users));
+        localStorage.setItem('sencons_cart', JSON.stringify(cart));
+        localStorage.setItem('sencons_wishlist', JSON.stringify(wishlist));
+        localStorage.setItem('sencons_orders', JSON.stringify(orders));
+        localStorage.setItem('sencons_media', JSON.stringify(mediaLibrary));
+        localStorage.setItem('sencons_loyalty', loyaltyPoints);
+        localStorage.setItem('sencons_last_update', new Date().toISOString());
+        if (currentUser) localStorage.setItem('sencons_current_user', JSON.stringify(currentUser));
+    }
+
+    function showToast(msg, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.style.background = type === "success" ? "#2ECC71" : type === "error" ? "#E74C3C" : type === "warning" ? "#F39C12" : "#3498DB";
+        toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    function updateDisplay() {
+        document.getElementById("cartCount").innerText = cart.reduce((s, i) => s + i.quantity, 0);
+        document.getElementById("wishlistCount").innerText = wishlist.length;
+        if (currentUser) {
+            document.getElementById("profileName").innerHTML = currentUser.name;
+            if (currentUser.profilePhoto) {
+                document.getElementById("profileAvatar").innerHTML = `<img src="${currentUser.profilePhoto}" alt="photo">`;
+            }
+            document.getElementById("logoutBtn").style.display = "inline-block";
+        } else {
+            document.getElementById("profileName").innerHTML = "Mon compte";
+            document.getElementById("profileAvatar").innerHTML = `<i class="fas fa-user-circle"></i>`;
+            document.getElementById("logoutBtn").style.display = "none";
+        }
+    }
+
+    // ========== AFFICHAGE DES PRODUITS ==========
+    function renderProducts() {
+        let filtered = [...products];
+        if (currentCategory !== "all") filtered = filtered.filter(p => p.category === currentCategory);
+        
+        const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+        if (searchTerm) filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
+        
+        const minPrice = parseInt(document.getElementById("minPrice").value) || 0;
+        const maxPrice = parseInt(document.getElementById("maxPrice").value) || 500000;
+        filtered = filtered.filter(p => p.price >= minPrice && p.price <= maxPrice);
+        
+        const selectedBrands = Array.from(document.querySelectorAll("#brandFilters input:checked")).map(cb => cb.value);
+        if (selectedBrands.length) filtered = filtered.filter(p => selectedBrands.includes(p.brand));
+        
+        const ratingMin = parseInt(document.getElementById("ratingFilter").value);
+        if (ratingMin > 0) filtered = filtered.filter(p => p.rating >= ratingMin);
+        
+        if (document.getElementById("inStockOnly").checked) filtered = filtered.filter(p => p.stock > 0);
+        
+        const sortBy = document.getElementById("sortBy").value;
+        if (sortBy === "price_asc") filtered.sort((a, b) => a.price - b.price);
+        if (sortBy === "price_desc") filtered.sort((a, b) => b.price - a.price);
+        if (sortBy === "rating") filtered.sort((a, b) => b.rating - a.rating);
+        
+        document.getElementById("productCount").innerText = filtered.length;
+        
+        const start = (currentPage - 1) * itemsPerPage;
+        const paginated = filtered.slice(start, start + itemsPerPage);
+        const totalPages = Math.ceil(filtered.length / itemsPerPage);
+        
+        const container = document.getElementById("productsContainer");
+        container.innerHTML = paginated.map(product => `
+            <div class="product-card" onclick="showProductDetail(${product.id})">
+                <div class="product-media">
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/400?text=Image'">
+                    ${product.stock === 0 ? '<div class="product-badge">Rupture</div>' : product.stock < 5 ? '<div class="product-badge" style="background:#F39C12;">Dernières pièces</div>' : ''}
+                    <div class="product-wishlist-btn" onclick="event.stopPropagation(); toggleWishlist(${product.id})">
+                        <i class="${wishlist.includes(product.id) ? 'fas fa-heart' : 'far fa-heart'}"></i>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-rating">${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5-Math.floor(product.rating))} (${product.rating})</div>
+                    <div class="product-price">${product.price.toLocaleString()} CFA</div>
+                    <button class="btn btn-primary" onclick="event.stopPropagation(); addToCart(${product.id})" style="width:100%"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                    <button class="btn btn-whatsapp" onclick="event.stopPropagation(); askWhatsApp('${product.name}')" style="width:100%; margin-top:8px;"><i class="fab fa-whatsapp"></i> Question</button>
+                </div>
+            </div>
+        `).join("");
+        
+        const paginationDiv = document.getElementById("pagination");
+        paginationDiv.innerHTML = "";
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement("button");
+            btn.innerText = i;
+            btn.className = i === currentPage ? "active" : "";
+            btn.onclick = () => { currentPage = i; renderProducts(); };
+            paginationDiv.appendChild(btn);
+        }
+    }
+
+    // ========== PANIER ==========
+    function addToCart(productId, qty = 1) {
+        const product = products.find(p => p.id === productId);
+        if (!product || product.stock < qty) return showToast("Stock insuffisant", "error");
+        const existing = cart.find(i => i.id === productId);
+        if (existing) existing.quantity += qty;
+        else cart.push({ ...product, quantity: qty });
+        saveData();
+        updateDisplay();
+        showToast(`${product.name} ajouté au panier`);
+    }
+
+    function openCart() {
+        const container = document.getElementById("cartItems");
+        if (cart.length === 0) {
+            container.innerHTML = "<p style='text-align:center; padding:40px;'>🛒 Panier vide</p>";
+        } else {
+            container.innerHTML = cart.map(item => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; border-bottom:1px solid #eee;">
+                    <div><strong>${item.name}</strong><br>${item.price.toLocaleString()} CFA x ${item.quantity}</div>
+                    <div><strong>${(item.price * item.quantity).toLocaleString()} CFA</strong></div>
+                    <div>
+                        <button onclick="updateCartQuantity(${item.id}, ${item.quantity - 1})" style="background:#f0f0f0; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;">-</button>
+                        <span style="margin:0 10px;">${item.quantity}</span>
+                        <button onclick="updateCartQuantity(${item.id}, ${item.quantity + 1})" style="background:#f0f0f0; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer;">+</button>
+                        <button onclick="removeFromCart(${item.id})" style="background:#E74C3C; color:white; border:none; width:30px; height:30px; border-radius:50%; cursor:pointer; margin-left:10px;">×</button>
+                    </div>
+                </div>
+            `).join("");
+            const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+            const shipping = subtotal > 50000 ? 0 : 2000;
+            document.getElementById("cartSummary").innerHTML = `
+                <div style="padding:15px; background:#f9f9f9; border-radius:12px; margin-top:15px;">
+                    <p>Sous-total: <strong>${subtotal.toLocaleString()} CFA</strong></p>
+                    <p>Livraison: <strong>${shipping === 0 ? "Gratuite" : shipping.toLocaleString() + " CFA"}</strong></p>
+                    <hr><h3>Total: ${(subtotal + shipping).toLocaleString()} CFA</h3>
+                </div>
+            `;
+        }
+        document.getElementById("cartModal").style.display = "flex";
+    }
+
+    function updateCartQuantity(id, newQuantity) {
+        if (newQuantity <= 0) return removeFromCart(id);
+        const item = cart.find(i => i.id === id);
+        if (item) {
+            const product = products.find(p => p.id === id);
+            if (newQuantity <= product.stock) {
+                item.quantity = newQuantity;
+                saveData();
+                openCart();
+            } else {
+                showToast("Stock insuffisant", "error");
+            }
+        }
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(i => i.id !== id);
+        saveData();
+        openCart();
+    }
+
+    function selectPaymentMethod(method) {
+        selectedPaymentMethod = method;
+        document.querySelectorAll(".payment-method").forEach(el => el.classList.remove("selected"));
+        document.querySelector(`.payment-method[data-method="${method}"]`).classList.add("selected");
+        document.getElementById("waveForm").style.display = method === "wave" ? "block" : "none";
+        document.getElementById("orangeForm").style.display = method === "orange" ? "block" : "none";
+    }
+
+    function applyPromo() {
+        const code = document.getElementById("promoCode").value;
+        if (code === "SEN10") showToast("Code promo 10% appliqué!");
+        else showToast("Code invalide", "error");
+    }
+
+    function checkout() {
+        if (cart.length === 0) return showToast("Panier vide", "error");
+        
+        const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+        const shipping = total > 50000 ? 0 : 2000;
+        const newOrder = { id: Date.now(), date: new Date().toLocaleString(), items: [...cart], total: total + shipping, user: currentUser ? currentUser.name : "Invité" };
+        orders.push(newOrder);
+        
+        const points = Math.floor((total + shipping) / 1000);
+        loyaltyPoints += points;
+        if (currentUser) currentUser.loyaltyPoints = loyaltyPoints;
+        
+        const orderSummary = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
+        const waMessage = `Merci pour votre commande! 🎉\n\nRécapitulatif: ${orderSummary}\nTotal: ${(total + shipping).toLocaleString()} CFA\nPoints gagnés: +${points}`;
+        window.open(`https://wa.me/221772325318?text=${encodeURIComponent(waMessage)}`, '_blank');
+        
+        cart = [];
+        saveData();
+        showToast(`✅ Commande validée! +${points} points fidélité`);
+        closeModal("cartModal");
+        renderProducts();
+        updateDisplay();
+    }
+
+    // ========== FAVORIS ==========
+    function toggleWishlist(productId) {
+        if (wishlist.includes(productId)) {
+            wishlist = wishlist.filter(id => id !== productId);
+            showToast("Retiré des favoris", "info");
+        } else {
+            wishlist.push(productId);
+            showToast("Ajouté aux favoris");
+        }
+        saveData();
+        renderProducts();
+    }
+
+    function openWishlist() {
+        const favs = products.filter(p => wishlist.includes(p.id));
+        if (favs.length === 0) showToast("Aucun favori", "info");
+        else alert(`💖 Mes favoris (${favs.length}):\n${favs.map(p => `- ${p.name} (${p.price.toLocaleString()} CFA)`).join("\n")}`);
+    }
+
+    // ========== DÉTAIL PRODUIT ==========
+    function showProductDetail(id) {
+        const p = products.find(p => p.id === id);
+        const modal = document.getElementById("productModal");
+        document.getElementById("productModalContent").innerHTML = `
+            <h2>${p.name}</h2>
+            <img src="${p.image}" width="100%" style="border-radius:15px; margin:15px 0;" onerror="this.src='https://via.placeholder.com/400'">
+            <p><strong>💰 Prix:</strong> ${p.price.toLocaleString()} CFA</p>
+            <p><strong>📝 Description:</strong> ${p.description}</p>
+            <p><strong>⭐ Note:</strong> ${p.rating}/5</p>
+            <p><strong>📦 Stock:</strong> ${p.stock} unités</p>
+            <p><strong>🏷️ Marque:</strong> ${p.brand}</p>
+            <div class="social-links" style="margin:20px 0">
+                <a href="#" class="social-icon facebook"><i class="fab fa-facebook fa-2x"></i></a>
+                <a href="https://wa.me/221772325318?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20${encodeURIComponent(p.name)}" target="_blank" class="social-icon whatsapp"><i class="fab fa-whatsapp fa-2x"></i></a>
+                <a href="#" class="social-icon instagram"><i class="fab fa-instagram fa-2x"></i></a>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-primary" onclick="addToCart(${p.id}); closeModal('productModal');"><i class="fas fa-shopping-cart"></i> Ajouter</button>
+                <button class="btn btn-whatsapp" onclick="askWhatsApp('${p.name}')"><i class="fab fa-whatsapp"></i> Question</button>
+                <button class="btn btn-outline" onclick="closeModal('productModal')">Fermer</button>
+            </div>
+        `;
+        modal.style.display = "flex";
+    }
+
+    // ========== WHATSAPP ==========
+    function toggleChat() {
+        document.getElementById("chatPreview").classList.toggle("active");
+    }
+
+    function sendChatMessage() {
+        const input = document.getElementById("chatInput");
+        const message = input.value.trim();
+        if (!message) return;
+        
+        const chatMessages = document.getElementById("chatMessages");
+        const userMsg = document.createElement("div");
+        userMsg.className = "chat-message user";
+        userMsg.innerHTML = `<div class="message-bubble">${escapeHtml(message)}</div>`;
+        chatMessages.appendChild(userMsg);
+        
+        setTimeout(() => {
+            const botMsg = document.createElement("div");
+            botMsg.className = "chat-message bot";
+            let response = "Merci pour votre message! Notre équipe vous répondra sous peu.";
+            if (message.toLowerCase().includes("commande")) response = "📦 Pour commander, ajoutez des produits au panier et validez.";
+            else if (message.toLowerCase().includes("livraison")) response = "🚚 Livraison gratuite dès 50 000 CFA. Délai: 2-3 jours.";
+            else if (message.toLowerCase().includes("prix")) response = "💰 Les prix sont affichés sur chaque produit.";
+            botMsg.innerHTML = `<div class="message-bubble">${response}</div>`;
+            chatMessages.appendChild(botMsg);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 500);
+        
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        input.value = "";
+        window.open(`https://wa.me/221772325318?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    function askWhatsApp(productName) {
+        window.open(`https://wa.me/221772325318?text=${encodeURIComponent(`Bonjour, je suis intéressé par: ${productName}`)}`, '_blank');
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // ========== FILTRES ==========
+    function filterByCategory(cat) {
+        currentCategory = cat;
+        currentPage = 1;
+        document.getElementById("categoryTitle").innerHTML = cat === "all" ? "✨ Nos Produits Locaux" : `✨ ${cat}`;
+        renderProducts();
+    }
+
+    function applyFilters() {
+        currentPage = 1;
+        renderProducts();
+    }
+
+    // ========== FIDÉLITÉ ==========
+    function openLoyalty() {
+        const level = loyaltyPoints >= 5000 ? "Platinum 👑" : loyaltyPoints >= 2000 ? "Gold 🥇" : loyaltyPoints >= 500 ? "Silver 🥈" : "Bronze 🥉";
+        alert(`⭐ PROGRAMME FIDÉLITÉ ⭐\n\nPoints: ${loyaltyPoints}\nNiveau: ${level}\n\nAvantages:\n• Bronze (500 pts): -5%\n• Silver (2000 pts): -10%\n• Gold (5000 pts): -15%\n• Platinum (10000 pts): -20%`);
+    }
+
+    // ========== AUTHENTIFICATION ==========
+    function openProfileModal() {
+        document.getElementById("profileModal").style.display = "flex";
+        if (currentUser && currentUser.profilePhoto) document.getElementById("profilePreviewImg").src = currentUser.profilePhoto;
+    }
+
+    document.getElementById("profilePhotoUpload").addEventListener("change", function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const imgUrl = event.target.result;
+                document.getElementById("profilePreviewImg").src = imgUrl;
+                if (currentUser) { currentUser.profilePhoto = imgUrl; saveData(); updateDisplay(); showToast("Photo mise à jour!"); }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function registerUser() {
+        const name = document.getElementById("authName").value;
+        const email = document.getElementById("authEmail").value;
+        const password = document.getElementById("authPassword").value;
+        if (!name || !email || !password) return showToast("Remplissez tous les champs", "error");
+        if (users.find(u => u.email === email)) return showToast("Email déjà utilisé", "error");
+        const newUser = { id: Date.now(), name, email, password, role: "user", points: 0, createdAt: new Date().toISOString() };
+        users.push(newUser);
+        currentUser = newUser;
+        saveData();
+        updateDisplay();
+        showToast(`✅ Bienvenue ${name}!`);
+        closeModal("profileModal");
+    }
+
+    function loginUser() {
+        const email = document.getElementById("authEmail").value;
+        const password = document.getElementById("authPassword").value;
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) {
+            currentUser = user;
+            saveData();
+            updateDisplay();
+            showToast(`👋 Bonjour ${user.name}!`);
+            closeModal("profileModal");
+        } else {
+            showToast("Email ou mot de passe incorrect", "error");
+        }
+    }
+
+    function logoutUser() {
+        currentUser = null;
+        saveData();
+        updateDisplay();
+        showToast("Déconnexion réussie");
+        closeModal("profileModal");
+    }
+
+    // ========== ADMINISTRATION ==========
+    function openAdmin() {
+        document.getElementById("adminModal").style.display = "flex";
+        document.getElementById("adminPassword").value = "";
+        document.getElementById("adminLoginDiv").style.display = "block";
+        document.getElementById("adminContentDiv").style.display = "none";
+    }
+
+    function loginAdmin() {
+        if (document.getElementById("adminPassword").value === "SenCons@123") {
+            document.getElementById("adminLoginDiv").style.display = "none";
+            document.getElementById("adminContentDiv").style.display = "block";
+            loadAdminStats();
+            loadAdminProducts();
+            loadAdminOrders();
+            loadAdminUsers();
+            loadAdminMedia();
+            showToast("Mode administrateur activé");
+        } else {
+            showToast("Mot de passe incorrect", "error");
+        }
+    }
+
+    function loadAdminStats() {
+        document.getElementById("adminTotalProducts").innerText = products.length;
+        document.getElementById("adminTotalOrders").innerText = orders.length;
+        document.getElementById("adminTotalUsers").innerText = users.filter(u => u.role !== "admin").length;
+        const revenue = orders.reduce((s, o) => s + o.total, 0);
+        document.getElementById("adminTotalRevenue").innerText = revenue.toLocaleString() + " CFA";
+    }
+
+    function loadAdminProducts() {
+        const tbody = document.getElementById("adminProductsTable");
+        tbody.innerHTML = products.map(p => `
+            <tr>
+                <td><img src="${p.image}" width="50" height="50" style="object-fit:cover; border-radius:8px;"></td>
+                <td>${p.name}</td>
+                <td>${p.price.toLocaleString()} CFA</td>
+                <td>${p.stock}</td>
+                <td>${p.category}</td>
+                <td>
+                    <button class="btn btn-info btn-sm" onclick="editProduct(${p.id})">✏️</button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">🗑️</button>
+                 </td>
+            </tr>
+        `).join('');
+        
+        document.getElementById("adminSearchProduct").addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+            tbody.innerHTML = filtered.map(p => `
+                <tr>
+                    <td><img src="${p.image}" width="50" height="50" style="object-fit:cover; border-radius:8px;"></td>
+                    <td>${p.name}</td>
+                    <td>${p.price.toLocaleString()} CFA</td>
+                    <td>${p.stock}</td>
+                    <td>${p.category}</td>
+                    <td>
+                        <button class="btn btn-info btn-sm" onclick="editProduct(${p.id})">✏️</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">🗑️</button>
+                     </td>
+                </tr>
+            `).join('');
+        });
+    }
+
+    function editProduct(id) {
+        const product = products.find(p => p.id === id);
+        if (!product) return;
+        const newName = prompt("Nouveau nom:", product.name);
+        const newPrice = parseInt(prompt("Nouveau prix:", product.price));
+        const newStock = parseInt(prompt("Nouveau stock:", product.stock));
+        if (newName) product.name = newName;
+        if (newPrice) product.price = newPrice;
+        if (newStock) product.stock = newStock;
+        saveData();
+        loadAdminProducts();
+        renderProducts();
+        showToast("Produit modifié");
+    }
+
+    function deleteProduct(id) {
+        if (confirm("Supprimer ce produit?")) {
+            products = products.filter(p => p.id !== id);
+            saveData();
+            loadAdminProducts();
+            renderProducts();
+            loadAdminStats();
+            showToast("Produit supprimé");
+        }
+    }
+
+    function adminAddProduct() {
+        const name = document.getElementById("prodName").value;
+        const price = parseInt(document.getElementById("prodPrice").value);
+        if (!name || !price) return showToast("Remplissez nom et prix", "error");
+        
+        const newProduct = {
+            id: Date.now(),
+            name: name,
+            price: price,
+            category: document.getElementById("prodCategory").value,
+            brand: document.getElementById("prodBrand").value || "ArtisanLocal",
+            stock: parseInt(document.getElementById("prodStock").value) || 10,
+            rating: parseFloat(document.getElementById("prodRating").value) || 4.0,
+            image: document.getElementById("prodImage").value || "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400",
+            description: document.getElementById("prodDescription").value || "Produit artisanal de qualité"
+        };
+        products.push(newProduct);
+        saveData();
+        loadAdminProducts();
+        renderProducts();
+        loadAdminStats();
+        showToast("✅ Produit ajouté");
+        
+        document.getElementById("prodName").value = "";
+        document.getElementById("prodPrice").value = "";
+        document.getElementById("prodBrand").value = "";
+        document.getElementById("prodStock").value = "10";
+        document.getElementById("prodImage").value = "";
+        document.getElementById("prodDescription").value = "";
+    }
+
+    function loadAdminOrders() {
+        const tbody = document.getElementById("adminOrdersTable");
+        tbody.innerHTML = orders.map(order => `
+            <tr>
+                <td>#${order.id}</td>
+                <td>${order.user}</td>
+                <td>${order.date}</td>
+                <td>${order.total.toLocaleString()} CFA</td>
+                <td><span style="background:#2ECC71; color:white; padding:2px 8px; border-radius:20px;">Payée</span></td>
+                <td><button class="btn btn-info btn-sm" onclick="viewOrder(${order.id})">📄 Détail</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function viewOrder(id) {
+        const order = orders.find(o => o.id === id);
+        if (order) {
+            alert(`📦 COMMANDE #${order.id}\nClient: ${order.user}\nDate: ${order.date}\n\nProduits:\n${order.items.map(i => `- ${i.name}: ${i.quantity} x ${i.price.toLocaleString()} CFA`).join('\n')}\nTotal: ${order.total.toLocaleString()} CFA`);
+        }
+    }
+
+    function loadAdminUsers() {
+        const tbody = document.getElementById("adminUsersTable");
+        const regularUsers = users.filter(u => u.role !== 'admin');
+        tbody.innerHTML = regularUsers.map(user => `
+            <tr>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.role === 'admin' ? 'Admin' : 'Utilisateur'}</td>
+                <td>${user.points || 0}</td>
+                <td><button class="btn btn-danger btn-sm" onclick="deleteUser(${user.id})">🗑️</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function deleteUser(id) {
+        if (confirm("Supprimer cet utilisateur?")) {
+            users = users.filter(u => u.id !== id);
+            saveData();
+            loadAdminUsers();
+            loadAdminStats();
+            showToast("Utilisateur supprimé");
+        }
+    }
+
+    function loadAdminMedia() {
+        const gallery = document.getElementById("adminMediaGallery");
+        gallery.innerHTML = mediaLibrary.map(media => `
+            <div style="border:1px solid #ddd; border-radius:8px; overflow:hidden; position:relative;">
+                ${media.type.startsWith('image/') ? 
+                    `<img src="${media.data}" style="width:100%; height:100px; object-fit:cover;">` :
+                    `<video style="width:100%; height:100px; object-fit:cover;"><source src="${media.data}"></video>`
+                }
+                <button onclick="deleteMedia('${media.id}')" style="position:absolute; top:5px; right:5px; background:red; color:white; border:none; border-radius:50%; width:20px; height:20px; cursor:pointer;">×</button>
+            </div>
+        `).join('');
+    }
+
+    document.getElementById("adminMediaUpload").addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        files.forEach(file => {
+            if (file.type.startsWith('image/') || file.type.startsWith('video/')) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    mediaLibrary.push({ id: Date.now() + Math.random(), name: file.name, type: file.type, data: event.target.result });
+                    saveData();
+                    loadAdminMedia();
+                    showToast(`📁 ${file.name} téléchargé`);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+
+    function deleteMedia(id) {
+        mediaLibrary = mediaLibrary.filter(m => m.id != id);
+        saveData();
+        loadAdminMedia();
+        showToast("Média supprimé");
+    }
+
+    function showAdminTab(tab) {
+        document.querySelectorAll('.admin-tab-content').forEach(t => t.style.display = 'none');
+        document.getElementById(`admin${tab.charAt(0).toUpperCase() + tab.slice(1)}Tab`).style.display = 'block';
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+
+    // ========== SYNCHRONISATION ==========
+    function startAutoSync() {
+        if (syncInterval) clearInterval(syncInterval);
+        syncInterval = setInterval(() => syncWithSourceCode(false), 30000);
+    }
+
+    function syncWithSourceCode(showMsg = true) {
+        const syncDiv = document.getElementById("syncStatus");
+        syncDiv.classList.add("active");
+        
+        setTimeout(() => {
+            let changes = 0;
+            for (const sourceProduct of SOURCE_PRODUCTS) {
+                const existingIndex = products.findIndex(p => p.id === sourceProduct.id);
+                if (existingIndex === -1) {
+                    products.push(JSON.parse(JSON.stringify(sourceProduct)));
+                    changes++;
+                }
+            }
+            
+            if (changes > 0) {
+                saveData();
+                renderProducts();
+                if (showMsg) showToast(`🔄 ${changes} produit(s) synchronisé(s)`);
+                document.getElementById("syncResult").innerHTML = `<div style="color:green;">✅ Synchronisation terminée: ${changes} produit(s) ajouté(s)</div>`;
+            } else {
+                if (showMsg) showToast("✓ Déjà à jour", "info");
+                document.getElementById("syncResult").innerHTML = `<div style="color:blue;">✓ Aucune mise à jour nécessaire</div>`;
+            }
+            
+            syncDiv.classList.remove("active");
+        }, 500);
+    }
+
+    function exportAllData() {
+        const exportData = { products, users, orders, mediaLibrary, exportDate: new Date().toISOString() };
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `sencons_backup_${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+        showToast("Données exportées!");
+    }
+
+    function importDataFile() {
+        document.getElementById("importDataFile").click();
+        document.getElementById("importDataFile").onchange = function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    try {
+                        const imported = JSON.parse(event.target.result);
+                        if (imported.products) products = imported.products;
+                        if (imported.users) users = imported.users;
+                        if (imported.orders) orders = imported.orders;
+                        if (imported.mediaLibrary) mediaLibrary = imported.mediaLibrary;
+                        saveData();
+                        renderProducts();
+                        loadAdminStats();
+                        loadAdminProducts();
+                        loadAdminOrders();
+                        loadAdminUsers();
+                        loadAdminMedia();
+                        showToast("Importation réussie!");
+                    } catch (error) {
+                        showToast("Erreur d'importation", "error");
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
+    }
+
+    function resetAllData() {
+        if (confirm("⚠️ ATTENTION: Cette action va supprimer TOUTES vos données! Êtes-vous sûr?")) {
+            localStorage.clear();
+            products = JSON.parse(JSON.stringify(SOURCE_PRODUCTS));
+            users = [{ id: 1, name: "Admin", email: "admin@senartisan.com", password: "SenCons@123", role: "admin", points: 0, createdAt: new Date().toISOString() }];
+            orders = [];
+            cart = [];
+            wishlist = [];
+            mediaLibrary = [];
+            loyaltyPoints = 0;
+            currentUser = null;
+            saveData();
+            renderProducts();
+            updateDisplay();
+            if (document.getElementById("adminContentDiv").style.display === "block") {
+                loadAdminStats();
+                loadAdminProducts();
+                loadAdminOrders();
+                loadAdminUsers();
+                loadAdminMedia();
+            }
+            showToast("Données réinitialisées");
+        }
+    }
+
+    // ========== UTILITAIRES ==========
+    function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+    }
+
+    window.onclick = (e) => {
+        if (e.target.classList.contains("modal")) e.target.style.display = "none";
+    };
+
+    document.getElementById("searchInput").addEventListener("input", () => {
+        currentPage = 1;
+        renderProducts();
+    });
+
+    // Démarrer
+    init();
+    selectPaymentMethod("card");
+</script>
+</body>
+</html>
